@@ -4,8 +4,6 @@ import numpy as np;
  
 # Read image
 im = cv2.imread("strongylid_test_2.jpg", cv2.IMREAD_GRAYSCALE)
-# gray= cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
-
  
 # Set up the detector with default parameters.
 detector = cv2.SimpleBlobDetector_create()
@@ -27,9 +25,6 @@ params = cv2.SimpleBlobDetector_Params()
 # Change thresholds
 params.minThreshold = 10
 params.maxThreshold = 200
-
-# Filter by Color
-params.filterByColor = True
 
 # Filter by Area.
 params.filterByArea = True

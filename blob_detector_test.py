@@ -2,23 +2,28 @@
 import cv2
 import numpy as np;
 
+kernel = np.ones((2, 2), np.uint8) 
+
 # Read image
-im = cv2.imread("strongylid_test_2.jpg", cv2.IMREAD_GRAYSCALE)
+img = cv2.imread("strongylid_test_2.jpg", cv2.IMREAD_GRAYSCALE)
 # gray= cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
+im = cv2.erode(img, kernel, iterations=1) 
 
 # Setup SimpleBlobDetector parameters.
 params = cv2.SimpleBlobDetector_Params()
 
 # Change thresholds
-params.minThreshold = 10
+params.minThreshold = 100
 params.maxThreshold = 200
 
 # Filter by Color
 params.filterByColor = True
 
 # Filter by Area.
+# Change based on sample size/magnification
 params.filterByArea = True
-params.minArea = 1500
+params.minArea = 3000
+params.maxArea = 10000
 
 # Filter by Circularity
 params.filterByCircularity = False
@@ -30,7 +35,10 @@ params.minConvexity = 0.87
 
 # Filter by Inertia
 params.filterByInertia = True
-params.minInertiaRatio = 0.01
+params.minInertiaRatio = 0.05 #.01
+params.maxInertiaRatio = 1
+
+params.minDistBetweenBlobs = 0.00001
 
 # Set up the detector with default parameters.
 detector = cv2.SimpleBlobDetector_create(params)
